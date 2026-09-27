@@ -1,0 +1,36 @@
+{
+  "name": "resume-coach",
+  "version": "1.0.0+codex.20260927062117",
+  "description": "简历雷达：证据驱动的简历体检、JD匹配评分、简历定制和面试准备。",
+  "author": {
+    "name": "xsh-Lan"
+  },
+  "keywords": [
+    "resume",
+    "cv",
+    "job-search",
+    "career",
+    "interview",
+    "ats",
+    "product-management",
+    "data-analysis"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "简历雷达",
+    "shortDescription": "简历体检、JD 匹配评分、简历定制与面试准备",
+    "longDescription": "简历雷达整合简历精修、JD 解析与匹配评分、简历定制、面试准备，使用统一 100 分评分标准、标准化输出模板和去标识化优秀简历模式库。",
+    "developerName": "xsh-Lan",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "调用简历雷达，体检我的简历",
+      "根据这个 JD 优化我的简历并给出匹配评分",
+      "为我的目标岗位生成面试准备"
+    ],
+    "brandColor": "#2563EB"
+  }
+}

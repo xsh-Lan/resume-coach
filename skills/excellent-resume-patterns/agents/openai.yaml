@@ -1,0 +1,4 @@
+interface:
+  display_name: "Excellent Resume Patterns"
+  short_description: "De-identified patterns from strong peer resumes"
+  default_prompt: "Use the de-identified resume patterns to improve structure and evidence without copying facts."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Job Application Assistant"
+  short_description: "Evaluate jobs, tailor resumes and prepare applications"
+  default_prompt: "Evaluate this job posting and tailor my resume using verified facts."

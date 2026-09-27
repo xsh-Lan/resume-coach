@@ -1,0 +1,4 @@
+interface:
+  display_name: "Interview Prep"
+  short_description: "Build personalized product, growth and business interview preparation"
+  default_prompt: "Prepare me for an interview based on my resume and target job."

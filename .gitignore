@@ -1,0 +1,6 @@
+config/privacy.json
+profile/candidate_profile.md
+profile/evidence.json
+profile/gap.json
+profile/versions/*
+!profile/versions/.gitkeep
