@@ -34,6 +34,7 @@ def main():
         "templates/改写方案.md",
         "templates/面试包.md",
         "scripts/sanitize_report.py",
+        "scripts/render_report.py",
         "hooks.json",
         "skills/excellent-resume-patterns/pattern_index.json",
     ]:
@@ -89,7 +90,16 @@ def main():
         check("sanitizer.school_kept", "武汉大学" in out)
         check("sanitizer.content_kept", "RAG、F1 score 80%" in out)
 
-    # 9. Optional report validation
+    # 9. Renderer smoke test
+    with tempfile.TemporaryDirectory() as td:
+        src = Path(td) / "report.md"
+        src.write_text("# 测试报告\n\n## 结论\n\n- 项目一\n- 项目二\n\n| A | B |\n|---|---|\n| 1 | 2 |\n", encoding="utf-8")
+        out = Path(td) / "out"
+        subprocess.run([sys.executable, str(PLUGIN / "scripts" / "render_report.py"), str(src), "--output-dir", str(out), "--formats", "html", "docx"], capture_output=True, text=True, encoding="utf-8", errors="ignore")
+        check("renderer.html", (out / "report.html").exists())
+        check("renderer.docx", (out / "report.docx").exists())
+
+    # 10. Optional report validation
     ap = argparse.ArgumentParser()
     ap.add_argument("--report")
     ap.add_argument("--target", choices=["ai_product", "data_analysis"])

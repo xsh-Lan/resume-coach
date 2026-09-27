@@ -48,11 +48,17 @@ Default workflow:
 9. Final audit: run fact, relevance, quantification, sanitization, and no-fabrication checks.
 
 Default output:
-1. Target-role diagnosis and scorecard
-2. Verified evidence map and missing evidence
-3. Revised resume or revised sections
-4. Change log
-5. Interview follow-up risks and questions
+1. Markdown source report for maintainability.
+2. Human-readable HTML generated with `scripts/render_report.py`.
+3. DOCX version generated with `scripts/render_report.py` when python-docx is available.
+4. Target-role diagnosis and scorecard.
+5. Verified evidence map and missing evidence.
+6. Revised resume or revised sections.
+7. Change log and interview follow-up risks.
+
+After finishing the Markdown report, run:
+`python scripts/render_report.py <report.md> --output-dir <directory> --formats html docx`
+Use the HTML for direct reading and the DOCX for Word/WPS editing or PDF export.
 
 Conversation rules:
 - Reply in the user's language, defaulting to Chinese when the user writes Chinese.

@@ -31,3 +31,14 @@
 ## 隐私
 
 姓名和联系方式不会写入输出文件。事实库同样不保存姓名和联系方式。
+
+## 可读格式
+
+Markdown 作为源文件保留，同时使用 `scripts/render_report.py` 自动导出：
+
+- HTML：浏览器直接阅读，也可打印为 PDF
+- DOCX：Word/WPS 编辑，并可另存为 PDF
+
+```bash
+python scripts/render_report.py report.md --output-dir out --formats html docx
+```
