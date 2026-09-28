@@ -90,6 +90,8 @@ def main():
     check("agent.quote_guard", "Only quote or reference sentences that actually exist" in agent)
     check("agent.minimal_output", "One HTML file per target direction" in agent and "Do not write Markdown or DOCX files" in agent)
     check("agent.deep_use_guide", "如需进一步使用简历雷达" in agent)
+    check("agent.sentence_granularity", "every resume section, bullet, and independent subclaim" in agent)
+    check("template.sentence_granularity", all(x in report for x in ["每个 bullet 的每个子主张","每个项目、每个子主张","可直接替换","待补信息"]))
     # Objective language: no color rating words in product surfaces.
     for rel in ["agents/resume-coach.md", "commands/refine-resume.md", "standards/cross_validation.md", "README.md"]:
         content = text(PLUGIN / rel)
