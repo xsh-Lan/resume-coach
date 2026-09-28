@@ -14,29 +14,47 @@ import sys
 from pathlib import Path
 
 CSS = """
-:root { color-scheme: light; }
-body { margin:0; background:#f5f7fb; color:#172033; font-family:"Microsoft YaHei","Segoe UI",Arial,sans-serif; }
-main { max-width:980px; margin:32px auto; padding:48px 56px; background:#fff; box-shadow:0 12px 40px rgba(20,40,80,.10); border-radius:12px; }
-h1,h2,h3,h4 { color:#123b7a; line-height:1.25; margin-top:1.6em; }
-h1 { font-size:30px; border-bottom:3px solid #2563eb; padding-bottom:12px; }
-h2 { font-size:23px; border-bottom:1px solid #d9e2f2; padding-bottom:8px; }
-h3 { font-size:18px; }
-p,li,td,th { font-size:15px; line-height:1.7; }
-ul,ol { padding-left:28px; }
-blockquote { margin:16px 0; padding:12px 18px; background:#eef5ff; border-left:4px solid #2563eb; color:#294264; }
-table { width:100%; border-collapse:collapse; margin:18px 0; }
-th,td { border:1px solid #cfd8e8; padding:9px 11px; vertical-align:top; }
-th { background:#edf3ff; color:#123b7a; }
-code { background:#f0f3f8; padding:2px 5px; border-radius:4px; font-family:Consolas,monospace; font-size:13px; }
-pre { background:#101827; color:#e7eefc; padding:16px; border-radius:8px; overflow:auto; }
+* { box-sizing: border-box; }
+:root { color-scheme: light; --blue:#2563eb; --ink:#172033; --muted:#64748b; --line:#e5e7eb; --bg:#eef2f8; }
+body { margin:0; background:var(--bg); color:var(--ink); font-family:"Microsoft YaHei","PingFang SC","Segoe UI",Arial,sans-serif; }
+.topbar { position:sticky; top:0; z-index:20; background:#ffffff; border-bottom:1px solid var(--line); padding:14px 24px; display:flex; align-items:center; gap:16px; box-shadow:0 2px 8px rgba(15,23,42,.05); }
+.topbar .brand { font-weight:800; color:#0f172a; font-size:16px; }
+.topbar .subtitle { color:var(--muted); font-size:13px; }
+.layout { max-width:1200px; margin:24px auto; display:grid; grid-template-columns:264px minmax(0,1fr); gap:22px; padding:0 20px; }
+.toc { position:sticky; top:84px; align-self:start; background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px; max-height:calc(100vh - 104px); overflow:auto; }
+.toc .toc-title { font-size:12px; letter-spacing:.08em; color:var(--muted); text-transform:uppercase; margin:0 0 8px; }
+.toc a { display:block; padding:6px 8px; margin:2px 0; color:#475569; text-decoration:none; border-radius:7px; font-size:13px; line-height:1.45; }
+.toc a:hover { background:#eff6ff; color:var(--blue); }
+.toc a.l2 { font-weight:600; }
+.toc a.l3 { padding-left:18px; }
+.content { min-width:0; background:#fff; border:1px solid var(--line); border-radius:18px; padding:44px 52px; box-shadow:0 12px 34px rgba(15,23,42,.08); }
+h1,h2,h3,h4 { color:#0f172a; line-height:1.3; scroll-margin-top:90px; }
+h1 { font-size:28px; margin:0 0 22px; padding-bottom:16px; border-bottom:2px solid var(--blue); }
+h2 { font-size:21px; margin:2.4em 0 .9em; padding-bottom:10px; border-bottom:1px solid var(--line); }
+h3 { font-size:16px; margin:1.6em 0 .6em; color:#1d4ed8; }
+h4 { font-size:15px; margin:1.2em 0 .4em; color:#334155; }
+p,li,td,th { font-size:14.5px; line-height:1.75; }
+ul,ol { padding-left:24px; }
+blockquote { margin:16px 0; padding:12px 18px; background:#f8fafc; border-left:4px solid var(--blue); color:#334155; border-radius:8px; }
+table { width:100%; border-collapse:collapse; margin:18px 0; font-size:13.5px; }
+th { background:#f1f5f9; color:#0f172a; text-align:left; }
+th,td { border:1px solid #dbe2ea; padding:9px 10px; vertical-align:top; }
+tbody tr:nth-child(even) { background:#fafbfd; }
+code { background:#f1f5f9; padding:2px 5px; border-radius:5px; font-family:Consolas,monospace; font-size:12.5px; color:#334155; }
+pre { background:#0f172a; color:#e2e8f0; padding:16px; border-radius:10px; overflow:auto; }
 pre code { background:transparent; color:inherit; padding:0; }
-hr { border:0; border-top:1px solid #d9e2f2; margin:28px 0; }
-.kv { display:grid; grid-template-columns:126px 1fr; gap:6px 14px; margin:8px 0; padding:9px 12px; border-left:3px solid #2563eb; background:#f8fafd; border-radius:6px; }
-.kv .k { font-weight:700; color:#123b7a; white-space:nowrap; }
-.kv .v { margin:0; }
+hr { border:0; border-top:1px solid var(--line); margin:30px 0; }
+.kv { display:grid; grid-template-columns:118px 1fr; gap:6px 12px; margin:7px 0; padding:8px 11px; border:1px solid #eef2f7; border-left:3px solid var(--blue); background:#fbfdff; border-radius:7px; }
+.kv .k { font-weight:700; color:#1e3a8a; white-space:nowrap; font-size:13.5px; }
 .kv .v p { margin:0; }
-@media print { body{background:#fff} main{box-shadow:none;margin:0;max-width:none;padding:16mm} h2{break-after:avoid} table{break-inside:auto} tr{break-inside:avoid} }
+.sev { display:inline-block; padding:2px 9px; border-radius:999px; font-size:12px; font-weight:700; }
+.sev.high { background:#fee2e2; color:#b91c1c; }
+.sev.medium { background:#ffedd5; color:#c2410c; }
+.sev.low { background:#e5e7eb; color:#475569; }
+@media (max-width: 900px) { .layout{grid-template-columns:1fr} .toc{position:static;max-height:none} .content{padding:26px 20px} }
+@media print { body{background:#fff} .topbar,.toc{display:none} .layout{display:block;max-width:none;margin:0;padding:0} .content{border:0;box-shadow:none;border-radius:0;padding:0} h2{break-after:avoid} table{break-inside:auto} tr{break-inside:avoid} }
 """
+
 
 def inline_html(s: str) -> str:
     s=html.escape(s, quote=False)
@@ -62,9 +80,10 @@ def parse_table(lines, i):
         i += 1
     return rows, i
 
-def markdown_to_html(md: str) -> str:
+def markdown_to_html(md: str):
     lines=md.splitlines()
     out=[]; i=0; list_type=None; in_code=False; code=[]
+    headings=[]; heading_no=0
     def close_list():
         nonlocal list_type
         if list_type:
@@ -92,11 +111,15 @@ def markdown_to_html(md: str) -> str:
             continue
         m=re.match(r'^(#{1,4})\s+(.*)$', line)
         if m:
-            close_list(); level=len(m.group(1)); out.append(f'<h{level}>{inline_html(m.group(2))}</h{level}>'); i+=1; continue
+            close_list(); level=len(m.group(1)); heading_no+=1; hid=f"h{heading_no}"; headings.append((level,inline_text(m.group(2)),hid)); out.append(f'<h{level} id="{hid}">{inline_html(m.group(2))}</h{level}>'); i+=1; continue
         m=re.match(r'^\s*[-*]\s*(原句|诊断|问题等级|建议改法|可直接替换|待补信息)[：:](.*)$', line)
         if m:
             close_list()
-            out.append('<div class="kv"><span class="k">'+inline_html(m.group(1))+'</span><div class="v"><p>'+inline_html(m.group(2).strip())+'</p></div></div>')
+            val=inline_html(m.group(2).strip())
+            if m.group(1)=='问题等级':
+                cls='high' if '高' in m.group(2) else ('medium' if '中' in m.group(2) else 'low')
+                val=f'<span class="sev {cls}">{val}</span>'
+            out.append('<div class="kv"><span class="k">'+inline_html(m.group(1))+'</span><div class="v"><p>'+val+'</p></div></div>')
             i+=1; continue
         m=re.match(r'^\s*[-*]\s+(.*)$', line)
         if m:
@@ -112,7 +135,7 @@ def markdown_to_html(md: str) -> str:
             close_list(); out.append('<hr>'); i+=1; continue
         close_list(); out.append('<p>'+inline_html(line.strip())+'</p>'); i+=1
     close_list()
-    return '\n'.join(out)
+    return '\n'.join(out), headings
 
 def markdown_to_docx(md: str, path: Path) -> tuple[bool,str]:
     try:
@@ -177,7 +200,14 @@ def main():
         md=src.read_text(encoding='utf-8')
         if 'html' in args.formats:
             title=next((inline_text(x.lstrip('# ').strip()) for x in md.splitlines() if x.startswith('# ')),src.stem)
-            page=f'<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)}</title><style>{CSS}</style></head><body><main>{markdown_to_html(md)}</main></body></html>'
+            body,headings=markdown_to_html(md)
+            toc=[]
+            for level,text,hid in headings:
+                if level in (2,3):
+                    toc.append(f'<a class="l{level}" href="#{hid}">{html.escape(text)}</a>')
+            nav=f'<nav class="toc"><div class="toc-title">目录</div>{"".join(toc)}</nav>' if toc else ''
+            top=f'<div class="topbar"><span class="brand">简历雷达</span><span class="subtitle">{html.escape(title)}</span></div>'
+            page=f'<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)}</title><style>{CSS}</style></head><body>{top}<div class="layout">{nav}<article class="content">{body}</article></div></body></html>'
             p=out/(src.stem+'.html'); p.write_text(page,encoding='utf-8'); print('HTML',p)
         if 'docx' in args.formats:
             p=out/(src.stem+'.docx'); ok,msg=markdown_to_docx(md,p)
