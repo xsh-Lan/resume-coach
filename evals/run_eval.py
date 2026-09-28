@@ -91,6 +91,9 @@ def main():
     check("agent.minimal_output", "One HTML file per target direction" in agent and "Do not write Markdown or DOCX files" in agent)
     check("agent.deep_use_guide", "如需进一步使用简历雷达" in agent)
     check("agent.sentence_granularity", "every resume section, bullet, and independent subclaim" in agent)
+    check("agent.four_skills", all(x in agent for x in ["job-application-assistant","resume-refiner","excellent-resume-patterns","interview-prep"]))
+    check("template.four_skills_collab", "四 Skill 使用与协作" in report and all(x in report for x in ["job-application-assistant","resume-refiner","excellent-resume-patterns","interview-prep"]))
+    check("renderer.kv_cards", 'class="kv"' in text(PLUGIN / "scripts" / "render_report.py"))
     check("template.sentence_granularity", all(x in report for x in ["每个 bullet 的每个子主张","每个项目、每个子主张","可直接替换","待补信息"]))
     # Objective language: no color rating words in product surfaces.
     for rel in ["agents/resume-coach.md", "commands/refine-resume.md", "standards/cross_validation.md", "README.md"]:

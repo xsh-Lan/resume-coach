@@ -31,6 +31,10 @@ code { background:#f0f3f8; padding:2px 5px; border-radius:4px; font-family:Conso
 pre { background:#101827; color:#e7eefc; padding:16px; border-radius:8px; overflow:auto; }
 pre code { background:transparent; color:inherit; padding:0; }
 hr { border:0; border-top:1px solid #d9e2f2; margin:28px 0; }
+.kv { display:grid; grid-template-columns:126px 1fr; gap:6px 14px; margin:8px 0; padding:9px 12px; border-left:3px solid #2563eb; background:#f8fafd; border-radius:6px; }
+.kv .k { font-weight:700; color:#123b7a; white-space:nowrap; }
+.kv .v { margin:0; }
+.kv .v p { margin:0; }
 @media print { body{background:#fff} main{box-shadow:none;margin:0;max-width:none;padding:16mm} h2{break-after:avoid} table{break-inside:auto} tr{break-inside:avoid} }
 """
 
@@ -89,6 +93,11 @@ def markdown_to_html(md: str) -> str:
         m=re.match(r'^(#{1,4})\s+(.*)$', line)
         if m:
             close_list(); level=len(m.group(1)); out.append(f'<h{level}>{inline_html(m.group(2))}</h{level}>'); i+=1; continue
+        m=re.match(r'^\s*[-*]\s*(原句|诊断|问题等级|建议改法|可直接替换|待补信息)[：:](.*)$', line)
+        if m:
+            close_list()
+            out.append('<div class="kv"><span class="k">'+inline_html(m.group(1))+'</span><div class="v"><p>'+inline_html(m.group(2).strip())+'</p></div></div>')
+            i+=1; continue
         m=re.match(r'^\s*[-*]\s+(.*)$', line)
         if m:
             if list_type!='ul': close_list(); out.append('<ul>'); list_type='ul'

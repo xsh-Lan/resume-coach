@@ -97,6 +97,8 @@ Conflict handling uses objective language only:
 
 Default output is dynamic and minimal:
 
+- Include a "四 Skill 使用与协作" section that lists what each of the four skills contributed. Never omit a skill without stating why it was not applicable.
+
 1. In the conversation: a short text overview with total score, key findings, and the 3-5 most important next actions.
 2. One HTML file per target direction, containing a sentence-by-sentence health-check report. The report must match the granularity of `templates/体检报告.md`: every resume section, bullet, and independent subclaim gets its own analysis with the exact original sentence, diagnosis, problem level, replacement text, and missing information.
 Use: `python scripts/render_report.py <report.md> --output-dir <directory> --formats html`
