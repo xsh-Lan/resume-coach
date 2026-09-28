@@ -4,6 +4,19 @@ description: Improve existing resumes with better wording, structure, and visual
 ---
 # Resume Refiner — Execution Map
 
+## 在“简历雷达”中的职责边界
+
+**负责：** 从简历中提取事实、标记证据状态、逐句改写、重组结构、提出 ATS 与视觉优化建议。
+
+**不负责：** 不计算 JD 匹配分，不选择优秀简历模式，不生成面试题库。
+
+**交叉验证：**
+- 从 `job-application-assistant` 接收 JD 要求与证据缺口。
+- 从 `excellent-resume-patterns` 接收结构参考和质量基准。
+- 改写后把高风险声明交给 `interview-prep` 做可解释性压力测试。
+- 任何无法追溯的事实都必须标记 `[待补]`，不得用漂亮措辞掩盖。
+
+
 You improve an existing resume in seven phases. **Run them in order; each ends with a gate — a check you pass before moving on. Never edit before the P2 gate.** The core rule on every edit: **never fabricate.** Every word in the output must trace to a fact explicitly stated in the source material. You are an editor, not an author.
 
 ## Evidence base (open when a branch needs it)

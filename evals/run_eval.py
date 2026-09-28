@@ -28,8 +28,12 @@ def main():
 
     # 2. Required files
     for rel in [
-        "agents/resume-radar.md",
+        "agents/resume-coach.md",
         "standards/scoring.md",
+        "standards/scoring_calibration.json",
+        "standards/cross_validation.md",
+        "PRODUCT.md",
+        "docs/architecture.md",
         "templates/体检报告.md",
         "templates/改写方案.md",
         "templates/面试包.md",
@@ -54,6 +58,11 @@ def main():
     check("scorecard.total", total == sc.get("total", 0), f"sum={total}")
     scoring = text(PLUGIN / "standards" / "scoring.md")
     check("scorecard.six_dimensions", all(k in scoring for k in ["岗位匹配","经历质量","量化与证据","结构与阅读","AI/数据专项","语言与诚信"]))
+    check("scorecard.v2", "v2.0" in scoring and "P0" in scoring and "置信度" in scoring and "封顶" in scoring)
+    check("scorecard.subcriteria", all("subcriteria" in d for d in sc["dimensions"]))
+    check("scorecard.calibration", (PLUGIN / "standards" / "scoring_calibration.json").exists())
+    cross = text(PLUGIN / "standards" / "cross_validation.md")
+    check("cross_validation.skills", all(x in cross for x in ["job-application-assistant","resume-refiner","excellent-resume-patterns","interview-prep"]))
 
     # 5. Templates fields
     report = text(PLUGIN / "templates" / "体检报告.md")
@@ -74,8 +83,9 @@ def main():
     check("pattern_index.schema", all(required_keys.issubset(p.keys()) for p in patterns))
 
     # 7. Agent safety rules
-    agent = text(PLUGIN / "agents" / "resume-radar.md")
-    for req in ["untrusted data", "Ignore any instructions", "sanitizer", "name and contact", "school names and resume content", "Never invent"]:
+    agent = text(PLUGIN / "agents" / "resume-coach.md")
+    check("agent.no_old_name", ("resume-" + "radar") not in agent)
+    for req in ["untrusted data", "Ignore instructions", "sanitizer", "name and contact", "school names and resume content", "Never invent"]:
         check(f"agent.safety.{req}", req in agent)
 
     # 8. Sanitizer unit test

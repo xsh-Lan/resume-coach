@@ -5,6 +5,15 @@ description: De-identified resume patterns distilled from a local collection of 
 
 # Excellent Resume Patterns
 
+## 在“简历雷达”中的职责边界
+
+**负责：** 基于 `pattern_index.json` 选择结构和证据模式，提供岗位能力基准、量化方式和质量参照。
+
+**不负责：** 不替用户写经历，不计算 JD 匹配分，不生成面试题。
+
+**交叉验证：** 为 `resume-refiner` 提供结构基准；对 JD 匹配结果提供模式层面的合理性检查；发现“结构很强但事实不足”时必须明确提示。
+
+
 This skill is a de-identified pattern library, not a set of resumes to copy.
 
 ## Core rules

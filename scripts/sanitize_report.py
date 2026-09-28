@@ -131,7 +131,7 @@ def main() -> int:
             continue
 
     if changed:
-        print(f"[resume-radar-sanitizer] sanitized {len(changed)} file(s)")
+        print(f"[resume-coach-sanitizer] sanitized {len(changed)} file(s)")
         for p in changed:
             print(" -", p)
     return 0
