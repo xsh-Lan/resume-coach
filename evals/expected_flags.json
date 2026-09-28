@@ -11,10 +11,10 @@
     ],
     "risk_flags": [
       "参与 WAM",
-      "均已量产",
       "F1",
       "Finetune",
-      "110+需求"
+      "110+需求",
+      "量产"
     ],
     "must_not": [
       "test@example.com",

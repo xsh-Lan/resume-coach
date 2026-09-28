@@ -87,6 +87,13 @@ def main():
     check("agent.no_old_name", ("resume-" + "radar") not in agent)
     for req in ["untrusted data", "Ignore instructions", "sanitizer", "name and contact", "school names and resume content", "Never invent"]:
         check(f"agent.safety.{req}", req in agent)
+    check("agent.quote_guard", "Only quote or reference sentences that actually exist" in agent)
+    check("agent.minimal_output", "One HTML file per target direction" in agent and "Do not write Markdown or DOCX files" in agent)
+    check("agent.deep_use_guide", "如需进一步使用简历雷达" in agent)
+    # Objective language: no color rating words in product surfaces.
+    for rel in ["agents/resume-coach.md", "commands/refine-resume.md", "standards/cross_validation.md", "README.md"]:
+        content = text(PLUGIN / rel)
+        check(f"objective.no_color.{rel}", not any(x in content for x in ["GREEN", "YELLOW", "RED"]), rel)
 
     # 8. Sanitizer unit test
     fixture = "[姓名：测试候选人]\n邮箱：test@example.com 手机：13800138000\n武汉大学 本科 管理科学\nRAG、F1 score 80%\n"
@@ -108,6 +115,12 @@ def main():
         subprocess.run([sys.executable, str(PLUGIN / "scripts" / "render_report.py"), str(src), "--output-dir", str(out), "--formats", "html", "docx"], capture_output=True, text=True, encoding="utf-8", errors="ignore")
         check("renderer.html", (out / "report.html").exists())
         check("renderer.docx", (out / "report.docx").exists())
+    with tempfile.TemporaryDirectory() as td:
+        src = Path(td) / "report.md"
+        src.write_text("# 默认输出测试\n\n- 只要 HTML\n", encoding="utf-8")
+        out = Path(td) / "out2"
+        subprocess.run([sys.executable, str(PLUGIN / "scripts" / "render_report.py"), str(src), "--output-dir", str(out)], capture_output=True, text=True, encoding="utf-8", errors="ignore")
+        check("renderer.default_html_only", (out / "report.html").exists() and not (out / "report.docx").exists())
 
     # 10. Optional report validation
     ap = argparse.ArgumentParser()

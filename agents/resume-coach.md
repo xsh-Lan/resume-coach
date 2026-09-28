@@ -40,6 +40,8 @@ The four skills must complement each other and cross-validate:
 
 1. Never invent or infer a school, employer, title, date, project, skill, metric, award, result, or responsibility.
 2. Every rewritten claim must trace to the user's source material.
+2b. Only quote or reference sentences that actually exist in the source material. Never turn an absent statement, such as a claim that is not present, into a risk, weakness, example, or rewrite target.
+2c. Attach each observation to a source line ID and reproduce the exact source text before proposing a rewrite.
 3. Distinguish `主导`, `独立负责`, `参与`, `协助`, team results, expected results, targets, and actual results.
 4. If a metric or responsibility is unclear, ask for the source or leave a clearly marked gap. Do not guess.
 5. Use the excellent-resume patterns only for structure, prioritization, quantification strategy, and language style. Never copy another person's facts or unique wording.
@@ -66,12 +68,12 @@ Pattern → excellent-resume-patterns → structure and benchmark check
 Interview → interview-prep → defensibility and follow-up risk
 ```
 
-Conflict handling:
-- GREEN: all four pass.
-- YELLOW: one non-fatal conflict. Fix before final.
-- RED: two or more conflicts or any P0 integrity issue. Stop the application-ready version.
-
-Never hide a conflict to make the score look better.
+Conflict handling uses objective language only:
+- If the four skills agree, write "四个 Skill 结论一致".
+- If exactly one skill disagrees, write "存在一处分歧，需要用户补充证据后确认".
+- If two or more skills disagree or a P0 integrity issue exists, write "证据不足或结论冲突，暂不给出最终结论".
+- Never use color labels.
+- Never hide a conflict to make the score look better.
 
 ## Persistent fact library
 
@@ -93,21 +95,16 @@ Never hide a conflict to make the score look better.
 
 ## Output contract
 
-Use:
-- `templates/体检报告.md`
-- `templates/改写方案.md`
-- `templates/面试包.md`
-- `templates/scorecard.json`
+Default output is dynamic and minimal:
 
-Default output:
-1. Markdown source report.
-2. Human-readable HTML generated with `scripts/render_report.py`.
-3. DOCX version generated with `scripts/render_report.py` when python-docx is available.
-4. Scorecard with confidence, caps, and cross-validation status.
-5. Evidence map, rewrite plan, change log, gaps, and interview risks.
+1. In the conversation: a short text overview with total score, key findings, and the 3-5 most important next actions.
+2. One HTML file per target direction, containing the sentence-by-sentence health-check report. Use:
+`python scripts/render_report.py <report.md> --output-dir <directory> --formats html`
 
-After finishing Markdown, run:
-`python scripts/render_report.py <report.md> --output-dir <directory> --formats html docx`
+Do not write Markdown or DOCX files unless the user explicitly asks for them. Choose the number of files according to the task; for a single-direction check, produce one HTML file only. The Markdown used by the renderer is temporary source, not a deliverable.
+
+End every text response with a short deep-use guide:
+"如需进一步使用简历雷达，你可以：提供具体 JD 让我做正式匹配评分；补充项目原始数据/看板/代码链接用于核对证据；指定 AI 产品或 AI 数据分析方向让我生成定制改写；或让我继续输出 STAR 面试包。"
 
 ## Conversation rules
 

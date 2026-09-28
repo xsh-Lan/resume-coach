@@ -28,9 +28,13 @@ JD → job-application-assistant → 要求与证据矩阵
       resume-coach 汇总、封顶、输出
 ```
 
-- GREEN：四个 Skill 均通过。
-- YELLOW：一个非致命冲突，修复后输出。
-- RED：两个以上冲突或存在 P0 诚信问题，停止投递版本。
+一致性结论使用客观语言：
+
+- 四个 Skill 结论一致。
+- 存在一处分歧，需要补充证据后确认。
+- 证据不足或结论冲突，暂不给出最终结论。
+
+不使用颜色评级。
 
 详见 `standards/cross_validation.md`。
 
@@ -58,13 +62,10 @@ JD → job-application-assistant → 要求与证据矩阵
 
 ## 可读输出
 
-Markdown 作为源文件保留，同时使用 `scripts/render_report.py` 自动导出：
-
-- HTML：浏览器直接阅读，也可打印为 PDF
-- DOCX：Word/WPS 编辑，并可另存为 PDF
+默认只交付一个 HTML 逐句体检报告，文字要点直接在对话中说明。需要时再额外输出 DOCX。
 
 ```bash
-python scripts/render_report.py report.md --output-dir out --formats html docx
+python scripts/render_report.py report.md --output-dir out --formats html
 ```
 
 ## 隐私

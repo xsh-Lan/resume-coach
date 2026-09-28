@@ -23,10 +23,8 @@ Use the `resume-coach` agent to diagnose, score, tailor, and validate a resume a
 
 ## Required output
 
-- standardized scorecard with confidence and caps
-- JD requirement and evidence matrix
-- sentence-level diagnosis and rewrite plan
-- cross-validation result: GREEN / YELLOW / RED
-- missing information
-- interview-risk questions
-- Markdown source + HTML + DOCX
+- short text overview in the conversation: total score, key findings, and 3-5 next actions
+- one HTML sentence-by-sentence report per target direction
+- use objective consistency wording instead of color labels
+- do not create Markdown or DOCX deliverables unless the user asks for them
+- end with the standard deep-use guide

@@ -159,7 +159,7 @@ def main():
     ap=argparse.ArgumentParser()
     ap.add_argument('input', nargs='+')
     ap.add_argument('--output-dir', default=None)
-    ap.add_argument('--formats', nargs='+', default=['html','docx'], choices=['html','docx'])
+    ap.add_argument('--formats', nargs='+', default=['html'], choices=['html','docx'])
     args=ap.parse_args()
     for raw in args.input:
         src=Path(raw)
