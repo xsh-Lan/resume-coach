@@ -6,7 +6,7 @@
 - Agent：`resume-coach`
 - 仓库：`resume-coach`
 - 核心原则：只使用用户提供的事实，不编造经历、数字或结果
-- 输出：Markdown 源文件 + HTML 阅读版 + DOCX 编辑版
+- 默认输出：一个 HTML 逐句体检报告；Markdown 为内部源文件，DOCX 按需生成
 
 ## 四个 Skill 的分工
 
@@ -49,6 +49,13 @@ JD → job-application-assistant → 要求与证据矩阵
 - P0 诚信封顶
 - 交叉验证冲突修正
 - 评分校准样例
+
+## 30 秒快速上手
+
+1. 新开一个 Codex 对话，启用“简历雷达”。
+2. 发送 `/refine-resume`，附上你的简历和 JD。
+3. 按报告中的“10 个最优先修改点”逐个修改。
+4. 打开生成的 HTML 查看逐句体检；需要 Word 版时再单独要求 DOCX。
 
 ## 快速使用
 

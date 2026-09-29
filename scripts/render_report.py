@@ -51,7 +51,12 @@ hr { border:0; border-top:1px solid var(--line); margin:30px 0; }
 .sev.high { background:#fee2e2; color:#b91c1c; }
 .sev.medium { background:#ffedd5; color:#c2410c; }
 .sev.low { background:#e5e7eb; color:#475569; }
-@media (max-width: 900px) { .layout{grid-template-columns:1fr} .toc{position:static;max-height:none} .content{padding:26px 20px} }
+.reading-guide { display:flex; gap:12px; align-items:flex-start; margin:0 0 22px; padding:14px 16px; background:#eef6ff; border:1px solid #c7dbff; border-radius:12px; color:#1e3a8a; font-size:14px; line-height:1.6; }
+.reading-guide strong { white-space:nowrap; }
+.next-steps { margin-top:36px; padding:18px 20px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; }
+.next-steps h2 { margin-top:0; border-bottom:0; padding-bottom:0; }
+.next-steps p { margin:8px 0 0; }
+@media (max-width: 900px) { .layout{grid-template-columns:1fr} .toc{position:static;max-height:none} .content{padding:26px 20px} table{display:block;overflow-x:auto;white-space:nowrap} .reading-guide{flex-direction:column;gap:4px} }
 @media print { body{background:#fff} .topbar,.toc{display:none} .layout{display:block;max-width:none;margin:0;padding:0} .content{border:0;box-shadow:none;border-radius:0;padding:0} h2{break-after:avoid} table{break-inside:auto} tr{break-inside:avoid} }
 """
 
@@ -207,7 +212,10 @@ def main():
                     toc.append(f'<a class="l{level}" href="#{hid}">{html.escape(text)}</a>')
             nav=f'<nav class="toc"><div class="toc-title">目录</div>{"".join(toc)}</nav>' if toc else ''
             top=f'<div class="topbar"><span class="brand">简历雷达</span><span class="subtitle">{html.escape(title)}</span></div>'
-            page=f'<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)}</title><style>{CSS}</style></head><body>{top}<div class="layout">{nav}<article class="content">{body}</article></div></body></html>'
+            guide='<div class="reading-guide"><strong>阅读指引</strong><span>先看「1. 总体结论」和「8. 10 个最优先修改点」，再按左侧目录查看逐句体检。报告只基于你提供的信息，未做外部验证；所有「待补」都是缺失信息，没有编造事实。</span></div>'
+            next_steps='<div class="next-steps"><h2>下一步可以做什么</h2><p>如需进一步使用简历雷达，你可以：提供具体 JD 做正式匹配评分；补充项目原始数据、看板或代码链接用于核对证据；指定目标岗位方向生成定制改写；或继续输出 STAR 面试包。</p></div>'
+            page=f'<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)}</title><style>{CSS}</style></head><body>{top}<div class="layout">{nav}<article class="content">{guide}{body}{next_steps}</article></div></body></html>'
+
             p=out/(src.stem+'.html'); p.write_text(page,encoding='utf-8'); print('HTML',p)
         if 'docx' in args.formats:
             p=out/(src.stem+'.docx'); ok,msg=markdown_to_docx(md,p)
