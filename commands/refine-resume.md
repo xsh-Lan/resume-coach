@@ -6,7 +6,7 @@ Use the `resume-coach` agent to diagnose, score, tailor, and validate a resume a
 
 - `resume`: current resume file or pasted text
 - `jd`: one or more job descriptions or job links
-- `target_role`: optional if the JD is sufficient
+- `target_role`: optional; derive it from the resume and JD when omitted
 - `output_format`: Markdown, HTML, DOCX; default to all three
 - `scope`: diagnosis, tailoring, interview preparation, or full workflow
 

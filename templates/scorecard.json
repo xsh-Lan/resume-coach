@@ -113,23 +113,23 @@
       ]
     },
     {
-      "key": "ai_data",
-      "label": "AI/数据专项",
+      "key": "specialty",
+      "label": "专项能力",
       "max": 10,
       "subcriteria": [
         {
-          "key": "workflow_depth",
-          "label": "方法与工作流深度",
+          "key": "professional_depth",
+          "label": "专业方法与深度",
           "max": 4
         },
         {
-          "key": "evaluation",
-          "label": "评测/验证",
+          "key": "validation_evidence",
+          "label": "验证与证据",
           "max": 3
         },
         {
-          "key": "business_value",
-          "label": "应用与业务价值",
+          "key": "business_impact",
+          "label": "业务影响",
           "max": 3
         }
       ]
